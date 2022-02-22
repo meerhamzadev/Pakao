@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  Register({Key? key}) : super(key: key);
+  const Register({Key? key}) : super(key: key);
 
   @override
   State<Register> createState() => _RegisterState();
@@ -13,135 +13,134 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/background.png"),
                 fit: BoxFit.cover,
               ),
             ),
             child: Center(
-                child: Container(
-                    child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.account_circle_rounded,
-                              color: Colors.grey,
-                              size: 100,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: TextFormField(
-                                validator: (String? value) {
-                                  if (value == null || value!.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Name',
-                                  hintText: 'Enter your Name',
-                                  prefixIcon: Icon(
-                                    Icons.vpn_key_rounded,
-                                    color: Colors.grey,
-                                  ),
-                                  border: UnderlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 2.0),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  labelStyle: TextStyle(color: Colors.grey),
-                                  hintStyle: TextStyle(color: Colors.white),
-                                ),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.account_circle_rounded,
+                          color: Colors.grey,
+                          size: 100,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFormField(
+                            validator: (String? value) {
+                              if (value == null || value!.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              labelText: 'Name',
+                              hintText: 'Enter your Name',
+                              prefixIcon: const Icon(
+                                Icons.vpn_key_rounded,
+                                color: Colors.grey,
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: TextFormField(
-                                style: TextStyle(color: Colors.white),
-                                validator: (String? value) {
-                                  if (value == null || value!.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  hintText: 'Enter your email',
-                                  prefixIcon: Icon(
-                                    Icons.email,
-                                    color: Colors.grey,
-                                  ),
-                                  border: UnderlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 2.0),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  labelStyle: TextStyle(color: Colors.grey),
-                                  hintStyle: TextStyle(color: Colors.white),
-                                ),
+                              border: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: TextFormField(
-                                style: TextStyle(color: Colors.white),
-                                validator: (String? value) {
-                                  if (value == null || value!.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  hintText: 'Enter your password',
-                                  prefixIcon: Icon(
-                                    Icons.vpn_key_rounded,
-                                    color: Colors.grey,
-                                  ),
-                                  border: UnderlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 2.0),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  labelStyle: TextStyle(color: Colors.grey),
-                                  hintStyle: TextStyle(color: Colors.white),
-                                ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
+                              labelStyle: const TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                             ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            SizedBox(
-                              height: 40,
-                              width: 480,
-                              child: ElevatedButton(
-                                child: Text('Register'),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.orange),
-                                ),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState!.save();
-                                    Navigator.pushNamed(context, '/login');
-                                  }
-                                },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            validator: (String? value) {
+                              if (value == null || value!.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              hintText: 'Enter your email',
+                              prefixIcon: const Icon(
+                                Icons.email,
+                                color: Colors.grey,
                               ),
+                              border: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              labelStyle: const TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                             ),
-                          ],
-                        ))))));
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            validator: (String? value) {
+                              if (value == null || value!.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              hintText: 'Enter your password',
+                              prefixIcon: const Icon(
+                                Icons.vpn_key_rounded,
+                                color: Colors.grey,
+                              ),
+                              border: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              labelStyle: const TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 480,
+                          child: ElevatedButton(
+                            child: const Text('Register'),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.orange),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                Navigator.pushNamed(context, '/login');
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )))));
   }
 }

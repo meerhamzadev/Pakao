@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pakao/Authentication/register.dart';
+import 'package:pakao/RecentlyViewed/recently_viewed.dart';
+import 'package:pakao/Settings/settings.dart';
 
-import '../favourites.dart';
-import 'freshRecipes.dart';
+import '../Favourites/favourites.dart';
+import 'fresh_recipes.dart';
 import 'recommended.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,18 +13,32 @@ class HomePage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
+            backgroundColor: Colors.black,
             appBar: AppBar(
                 title: const Text('Home'),
             ),
-            backgroundColor: Colors.black,
+           
             drawer: Drawer(
                 backgroundColor: const Color.fromARGB(255, 31, 31, 31),
                 child: ListView(
                     children: [
                         const DrawerHeader(
-                            child: Text('Username', style: TextStyle(color: Colors.white, fontSize: 20)),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 31, 31, 31),
+                            ),
+                            child: ListTile(
+                                leading: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Color.fromARGB(255, 31, 31, 31),
+                                    backgroundImage: AssetImage('assets/food.png'),
+                                ),
+                                title: Text('Username', style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold)),
+                                subtitle: Text('View Profile', style: TextStyle(color: Colors.grey, fontSize: 15)),
+                            ),
                         ),
+                        const SizedBox(height: 20),
                         ListTile(
+                            leading: const Icon(Icons.favorite, color: Colors.white),
                             title: const Text('Favourites', style: TextStyle(color: Colors.white, fontSize: 20)),
                             onTap: () {
                                 Navigator.push(context, MaterialPageRoute(
@@ -29,9 +46,48 @@ class HomePage extends StatelessWidget {
                                 ));
                             },
                         ),
+                        const SizedBox(height: 20),
+                        ListTile(
+                            leading: const Icon(Icons.history, color: Colors.white),
+                            title: const Text("Recently Viewed", style: TextStyle(color: Colors.white, fontSize: 20)),
+                            onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => const RecentlyViewed(),
+                                ));
+                            },
+                        ),
+                        const SizedBox(height: 20),
+                        ListTile(
+                            leading: const Icon(Icons.settings, color: Colors.white),
+                            title: const Text('Settings', style: TextStyle(color: Colors.white, fontSize: 20)),
+                            onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => const Settings(),
+                                ));
+                            },
+                        ),
+                        const SizedBox(height: 20),
+                        ListTile(
+                            leading: const Icon(Icons.exit_to_app, color: Colors.white),
+                            title: const Text("Logout", style: TextStyle(color: Colors.white, fontSize: 20)),
+                            onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => const Register(),
+                                ));
+                            },
+                        )
                     ],
                 ),
             ),
+            
+            onDrawerChanged: (bool value) {
+                if (true) {
+                    Transform(
+                        transform: Matrix4.translationValues(0, -100, 0),
+                        child: const HomePage()
+                    );
+                }
+            },
             
             body: ListView(
                 physics: const BouncingScrollPhysics(),
