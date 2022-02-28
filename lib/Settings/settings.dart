@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
     const Settings({Key? key}) : super(key: key);
 
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
     @override
     Widget build(BuildContext context) {
         bool isSwitched = true;
@@ -62,7 +67,9 @@ class Settings extends StatelessWidget {
                                             Switch(
                                                 value: isSwitched,
                                                 onChanged: (value) {
-                                                    isSwitched = !value;
+                                                    setState(() {
+                                                        isSwitched = value;
+                                                    });
                                                 },
                                                 activeTrackColor: Colors.orange,
                                                 activeColor: Colors.orange,
@@ -85,7 +92,9 @@ class Settings extends StatelessWidget {
                                             Switch(
                                                 value: isSwitched,
                                                 onChanged: (value) {
-                                                    isSwitched = !value;
+                                                    setState(() {
+                                                        isSwitched = value;
+                                                    });
                                                 },
                                                 activeTrackColor: Colors.orange,
                                                 activeColor: Colors.orange,
