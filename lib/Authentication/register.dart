@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pakao/Authentication/login.dart';
+import 'package:pakao/Services/auth.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -9,6 +11,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
+  String email = "";
+  String password = "";
+  AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +38,7 @@ class _RegisterState extends State<Register> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (String? value) {
-                              if (value == null || value!.isEmpty) {
+                              if (value == null || value.isEmpty) {
                                 return 'Please enter some text';
                               }
                               return null;
@@ -64,10 +69,13 @@ class _RegisterState extends State<Register> {
                           child: TextFormField(
                             style: const TextStyle(color: Colors.white),
                             validator: (String? value) {
-                              if (value == null || value!.isEmpty) {
+                              if (value == null || value.isEmpty) {
                                 return 'Please enter some text';
                               }
                               return null;
+                            },
+                            onChanged: (value) {
+                              setState(() => email = value);
                             },
                             decoration: InputDecoration(
                               labelText: 'Email',
@@ -94,10 +102,13 @@ class _RegisterState extends State<Register> {
                           child: TextFormField(
                             style: const TextStyle(color: Colors.white),
                             validator: (String? value) {
-                              if (value == null || value!.isEmpty) {
+                              if (value == null || value.isEmpty) {
                                 return 'Please enter some text';
                               }
                               return null;
+                            },
+                            onChanged: (value) {
+                              setState(() => password = value);
                             },
                             decoration: InputDecoration(
                               labelText: 'Password',
@@ -128,14 +139,23 @@ class _RegisterState extends State<Register> {
                           child: ElevatedButton(
                             child: const Text('Register'),
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.orange),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.orange),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                Navigator.pushNamed(context, '/login');
+                                print(email);
+                                print(password);
+                                dynamic result =
+                                    await _auth.register(email, password);
+                                if (result == null) {
+                                  print("i'm here");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()));
+                                }
                               }
                             },
                           ),

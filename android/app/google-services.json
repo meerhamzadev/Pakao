@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "15010187841",
+    "project_id": "git-github-webinar",
+    "storage_bucket": "git-github-webinar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15010187841:android:40c2989573d0e6f43694c0",
+        "android_client_info": {
+          "package_name": "com.example.pakao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15010187841-hsdfg3f43istbmmb71nq27uqtdc7f1e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPdNlIXBZ3zwQppoGQ8XccBkYX2beAE4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15010187841-hsdfg3f43istbmmb71nq27uqtdc7f1e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
