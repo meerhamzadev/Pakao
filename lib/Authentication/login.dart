@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pakao/Home/home_page.dart';
 
 import '../Services/auth.dart';
 
@@ -54,7 +55,7 @@ class _LoginState extends State<Login> {
                                         return 'Please enter some text';
                                     }
                                     
-                                    // return null;
+                                    return null;
                                 },
                                 onChanged: (value) => {
                                     setState(
@@ -82,7 +83,7 @@ class _LoginState extends State<Login> {
                                         dynamic result = await _auth.Login(email, password);
                                         
                                         if (result == null) {
-                                            Navigator.pop(context);
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
                                         }
                                     }
                                 },

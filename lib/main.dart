@@ -1,24 +1,33 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pakao/Authentication/login.dart';
 
 import 'Home/home_page.dart';
-import 'firebase.dart';
 
 void main() {
-    FirebaseConfig();
-    
+    WidgetsFlutterBinding.ensureInitialized();
+    Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyCPdNlIXBZ3zwQppoGQ8XccBkYX2beAE4Y",
+            appId: "1:15010187841:android:40c2989573d0e6f43694c0",
+            messagingSenderId: "15010187841",
+            projectId: "git-github-webinar"
+        )
+    );
+        
     runApp(const MyApp());
 }
 
-Widget authCheck() {
-    if (FirebaseAuth.instance.currentUser == null) {
-        return const Login();
-    } 
-    else {
-        return const HomePage();
-    }
-}
+// Widget authCheck() {
+//     if (FirebaseAuth.instance.currentUser == null) {
+//         return const Login();
+//     } 
+//     else {
+//         return const HomePage();
+//     }
+// }
+
 class MyApp extends StatelessWidget {
     const MyApp({Key? key}) : super(key: key);
 
@@ -33,7 +42,7 @@ class MyApp extends StatelessWidget {
                 ),
             ),
             
-            home: authCheck(),
+            home: const HomePage(),
         );
     }
 }
