@@ -1,37 +1,46 @@
+import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:pakao/RecipeView/recipe_instructions.dart';
-import 'package:pakao/data/RecipeApi.dart';
-import 'package:pakao/model/recipes.dart';
+import 'package:http/http.dart' as http;
 
 class FreshRecipes extends StatefulWidget {
-    const FreshRecipes({ Key? key }) : super(key: key);
+  const FreshRecipes({Key? key}) : super(key: key);
 
     @override
     State<FreshRecipes> createState() => _FreshRecipesState();
 }
 
+
+
 class _FreshRecipesState extends State<FreshRecipes> {
-    List<Recipe> recipesList = [];
-    
-    void getRecipesFromApi() async => {
-        RecipeApi.getRecipes().then(
-            (response) {
-                setState(
-                    () {
-                        Iterable list = json.decode(response.body["hits"]);
-                        print(response.body.hits[0]['recipe']);
-                        recipesList.addAll(list.map((model) => Recipe.fromJson(model['recipe'])).toList());
-                    }
-                );
-            }
-        ).catchError(
-            (error) {
-                print(error);
-            }
-        )
-    };
+  List<dynamic> recipesList = [];
+
+  void getRecipesFromApi() async {
+    try {
+      final response = await http.get(Uri.parse(
+          "https://api.edamam.com/api/recipes/v2?type=public&q=ingrediant-name&app_id=6d80d5cd&app_key=72ffab5c2dcc52c00cbd7eeafeaf3896"));
+
+      final data = jsonDecode(response.body);
+      recipesList.addAll(data['hits'].map((dynamic recipe) {
+        return {
+          'label': recipe['recipe']['label'],
+          'calories': recipe['recipe']['calories'].toString(),
+          'ingredients': recipe['recipe']['ingredients'],
+          'mealType': recipe['recipe']['mealType'],
+          'ingredientLines': recipe['recipe']['ingredientLines'],
+          'image': recipe['recipe']['image'],
+          'totalNutrients': recipe['recipe']['totalNutrients'],
+        };
+      }));
+
+    }
+      catch (e) {
+      print(e.toString());
+    }
+  }
     
     @override
     void initState() {
@@ -85,10 +94,11 @@ class _FreshRecipesState extends State<FreshRecipes> {
                                                             const Icon(Icons.favorite_border, color: Colors.white),
                                                             Expanded(
                                                                 child: SizedBox(
-                                                                    child: Transform.translate(
-                                                                        offset: const Offset(30, 10),
-                                                                        child: Image.network(recipesList[index].image),
-                                                                    ),
+                                child: Transform.translate(
+                                  offset: const Offset(30, 10),
+                                  child:
+                                      Image.network(recipesList[index].image),
+                                ),
                                                                 )
                                                             )
                                                         ]
