@@ -1,12 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:pakao/RecipeView/recipe_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class RecipeInstructions extends StatelessWidget {
-    const RecipeInstructions({Key? key}) : super(key: key);
+    var recipe;
 
+    RecipeInstructions({Key? key, required this.recipe}) : super(key: key);
+    
+    // final recipe;
+    
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -44,7 +46,7 @@ class RecipeInstructions extends StatelessWidget {
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                        const Text("French Toast with Berries", style: TextStyle(color: Colors.white, fontSize: 25)),
+                                        Flexible(child: Text(recipe['label'], overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white, fontSize: 25))),
                                         IconButton(
                                             icon: const Icon(Icons.favorite_border, color: Colors.grey, size: 30),
                                             onPressed: () {},
@@ -52,24 +54,24 @@ class RecipeInstructions extends StatelessWidget {
                                     ],
                                 ),
                                 const SizedBox(height: 5),
-                                Text("120 calories", style: TextStyle(color: Colors.orange[900], fontSize: 15)),
+                                Text(recipe['calories'] + " calories", style: TextStyle(color: Colors.orange[900], fontSize: 15)),
                                 const SizedBox(height: 10),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                         Row(
-                                            children: const [
-                                                Icon(Icons.timer, color: Colors.grey),
-                                                SizedBox(width: 8),
-                                                Text("45 mins", style: TextStyle(color: Colors.grey))
+                                            children:[
+                                                const Icon(Icons.timer, color: Colors.grey),
+                                                const SizedBox(width: 8),
+                                                Text(recipe['totalTime'] + " mins", style: const TextStyle(color: Colors.grey))
                                             ],
                                         ),
                                         const SizedBox(width: 20),
                                         Row(
-                                            children: const [
-                                                Icon(Icons.restaurant, color: Colors.grey),
-                                                SizedBox(width: 8),
-                                                Text("1 serving", style: TextStyle(color: Colors.grey)),
+                                            children: [
+                                                const Icon(Icons.restaurant, color: Colors.grey),
+                                                const SizedBox(width: 8),
+                                                Text(recipe['yield'] + " serving", style: const TextStyle(color: Colors.grey)),
                                             ],
                                         )
                                     ],
@@ -87,7 +89,7 @@ class RecipeInstructions extends StatelessWidget {
                                             child: ListView(
                                                 scrollDirection: Axis.horizontal,
                                                 physics: const BouncingScrollPhysics(),
-                                                children: getIngredients(),
+                                                children: getIngredients(recipe),
                                             ),
                                         )
                                     ],
@@ -102,7 +104,7 @@ class RecipeInstructions extends StatelessWidget {
                                             Expanded(
                                                 child: ListView(
                                                     physics: const BouncingScrollPhysics(),
-                                                    children: getDirections(),
+                                                    children: getDirections(recipe),
                                                     shrinkWrap: true,
                                                 )
                                             ),
@@ -112,15 +114,15 @@ class RecipeInstructions extends StatelessWidget {
                             ],
                         ),
                     ),
-                    body: const RecipeView(),
+                    body: RecipeView(recipe: recipe),
                 )
         );
     }
 }
 
-List<Widget> getIngredients() {
+List<Widget> getIngredients(recipe) {
     List<Widget> items = [];
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < recipe['ingredients'].length; i++) {
         items.add(
             Container(
                 width: 75,
@@ -130,8 +132,8 @@ List<Widget> getIngredients() {
                     borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                    child: Image.asset(
-                        'assets/food.png',
+                    child: Image.network(
+                        recipe['ingredients'][i]['image'],
                         fit: BoxFit.fill,
                         width: 60,
                         height: 40,
@@ -147,13 +149,13 @@ List<Widget> getIngredients() {
     return items;
 }
 
-List<Widget> getDirections() {
+List<Widget> getDirections(recipe) {
     List<Widget> items = [];
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < recipe['ingredientLines'].length; i++) {
         items.add(
-            const Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                child: BulletText(txt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ornare at nisl ut tempor. Donec."),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: BulletText(txt: recipe['ingredientLines'][i]),
             ),
         );
     }
